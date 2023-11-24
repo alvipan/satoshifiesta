@@ -1,0 +1,179 @@
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #80bfff;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4da6ff;
+}
+
+.fade-in-top {
+  position: relative;
+  animation-name: fade-in-top;
+  animation-duration: 1s;
+}
+
+@keyframes fade-in-top {
+  from {top:-100%;}
+  to {top:0;}
+}
+.fade-in-bottom {
+  position: relative;
+  animation-name: fade-in-bottom;
+  animation-duration: 1s;
+}
+@keyframes fade-in-bottom {
+  from {bottom:-100%;}
+  to {bottom:0;}
+}
+.fade-in-left {
+  position: relative;
+  animation-name: fade-in-left;
+  animation-duration: 1s;
+}
+@keyframes fade-in-left {
+  from {left:-100%;}
+  to {left:0;}
+}
+.fade-in-right {
+  position: relative;
+  animation-name: fade-in-right;
+  animation-duration: 1s;
+}
+@keyframes fade-in-right {
+  from {right:-100%;}
+  to {right:0px;}
+}
+
+#btn-outline-warning, .rightbottom {
+  right: 2%;
+  bottom: 2%;
+}
+
+.btn-outline-warning {
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+}
+
+.btn-outline-warning:hover {
+  box-shadow: 1px 1px 15px rgba(0,0,0,0.5) !important;
+}
+
+.btn-outline-warning {
+  animation: animationpulse 2s infinite;
+  animation: animationpulse 2s ease-out;
+  animation-iteration-count: infinite;
+}
+.btn-outline-warning:hover {
+  animation: linear;
+}
+
+@-webkit-keyframes animationpulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 inherit;
+  }
+  70% {
+    -webkit-box-shadow: 0 0 0 15px rgba(0,0,0, 0);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 0 0 rgba(0,0,0, 0);
+  }
+}
+@keyframes animationpulse {
+  0% {
+    transform: scale(1.0, 1.0);
+    -moz-box-shadow: 0 0 0 0 inherit;
+    box-shadow: 0 0 0 0 inherit;
+  }
+  10% {
+    transform: scale(1.1, 1.1);
+  }
+  15% {
+    transform: scale(1.0, 1.0);
+  }
+  70% {
+    -moz-box-shadow: 0 0 0 15px rgba(0,0,0, 0);
+    box-shadow: 0 0 0 15px rgba(0,0,0, 0);
+  }
+  100% {
+    -moz-box-shadow: 0 0 0 0 rgba(0,0,0, 0);
+    box-shadow: 0 0 0 0 rgba(0,0,0, 0);
+  }
+}
+@-ms-keyframes animationpulse {
+  0% {
+    -ms-transform: scale(1.0, 1.0);
+  }
+  10% {
+    -ms-transform: scale(1.1, 1.1);
+  }
+  20% {
+    -ms-transform: scale(1.0, 1.0);
+  }
+  100% {
+    -ms-transform: scale(1.0, 1.0);
+  }
+}
+
+@keyframes anim-glow {
+  0% {
+    box-shadow: 0 0 rgb(97, 239, 97);
+  }
+
+  100% {
+    box-shadow: 0 0 10px 8px transparent;
+    border-width: 2px;
+  }
+}
+
+.glow {
+  border-radius: 50%;
+  border: 2px solid #61EF61;
+  width: 14px;
+  height: 14px;
+  text-align: center;
+  position: relative;
+  animation: anim-glow 2s ease infinite;
+}
+
+.glow span {
+  border-radius: 50%;
+  border: 3px solid #61EF61;
+  width: 2px;
+  height: 2px;
+  display: inline-block;
+  vertical-align: 10px;
+  background-color: #61EF61;
+}
+
+/* Chat */
+
+.chatbro_invite_button {
+  display: none;
+}
+
+/*Translation*/
+
+#goog-gt-tt {
+  display: none !important;
+}
+
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+.goog-te-menu-value:hover {
+  text-decoration: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+#google_translate_element2 {
+  display: none !important;
+}
