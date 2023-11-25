@@ -3,17 +3,17 @@
 
 	<label class="form-label" for="reg-name">Username:</label>
   <div class="input-group input-group-outline mb-3">
-    <input id="reg-name" name="name" type="text" class="form-control" required/>
+    <input id="reg-name" name="name" type="text" class="form-control" autocomplete="off" required/>
   </div>
 
   <label class="form-label" for="reg-email">Email:</label>
   <div class="input-group input-group-outline mb-3">
-    <input id="reg-email" name="email" type="email" class="form-control" required/>
+    <input id="reg-email" name="email" type="email" class="form-control" autocomplete="off" required/>
   </div>
 
   <label class="form-label" for="reg-password">Password:</label>
   <div class="input-group input-group-outline mb-3">
-    <input id="reg-password" name="password" type="password" class="form-control" required/>
+    <input id="reg-password" name="password" type="password" class="form-control" autocompllete="off" required/>
   </div>
 
   <div class="form-check form-check-secondary text-start">
