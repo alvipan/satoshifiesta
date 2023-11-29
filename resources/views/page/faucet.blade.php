@@ -1,4 +1,4 @@
-<div class="card mt-xl-3 bg-gradient-primary">
+<div class="card mt-xl-3 bg-gradient-primary mb-3">
 	<div class="row">
 		<div class="col-xl-6 me-auto">
 			<div class="card-body">
@@ -6,23 +6,23 @@
 				<span class="text-white font-weight-bold text-sm">Get up to 0.00004096 BTC every hour!</span>
 
 				<div class="row justify-content-center align-items-center mb-3">
-					<div class="col-auto pe-1 mt-4">
-						<span class="h3 border border-light text-monospace rounded px-2 py-1" id="slot-1">0</span>
+					<div class="col-auto pe-0 mt-4">
+						<span class="h2 border border-light bg-gradient-primary font-monospace rounded px-2 py-1 py-xl-0" id="slot-1">0</span>
 					</div>
 					<div class="col-auto pe-1 mt-4">
-						<span class="h3 border border-light text-monospace rounded px-2 py-1" id="slot-2">0</span>
+						<span class="h2 border border-light bg-gradient-primary font-monospace rounded px-2 py-1 py-xl-0" id="slot-2">0</span>
 					</div>
 					<div class="col-auto pe-1 mt-4">
-						<span class="h3 border border-light text-monospace rounded px-2 py-1" id="slot-3">0</span>
+						<span class="h2 border border-light bg-gradient-primary font-monospace rounded px-2 py-1 py-xl-0" id="slot-3">0</span>
 					</div>
 					<div class="col-auto pe-1 mt-4">
-						<span class="h3 border border-light text-monospace rounded px-2 py-1" id="slot-4">0</span>
+						<span class="h2 border border-light bg-gradient-primary font-monospace rounded px-2 py-1 py-xl-0" id="slot-4">0</span>
 					</div>
 					<div class="col-auto mt-4">
-						<span class="h3 border border-light text-monospace rounded px-2 py-1" id="slot-5">0</span>
+						<span class="h2 border border-light bg-gradient-primary font-monospace rounded px-2 py-1 py-xl-0" id="slot-5">0</span>
 					</div>
-					<div class="col mt-4">
-						<button class='btn btn-roll btn-primary w-100' disabled>WAIT...</button>
+					<div class="col mt-4 ps-1">
+						<button class="btn btn-roll btn-primary w-100" onclick="roll()">ROLL</button>
 					</div>
 				</div>
 
@@ -43,3 +43,11 @@
 		</div>
 	</div>
 </div>
+<div class="row">
+	<div class="col-xl-4">
+		@include('part.faucet-reward')
+	</div>
+	<div class="col-xl-8">
+		@include('part.faucet-history')
+	</div>
+</diiv>

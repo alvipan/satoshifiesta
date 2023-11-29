@@ -1,4 +1,10 @@
-let data = {};
+let data;
+let postRedirect = {
+	'/login': '/faucet',
+	'/register':'/email/verify',
+	'/forgot-password': '/reset-password/sent',
+	'/reset-password': '/reset-password/success'
+};
 
 $.when (
 	$.get('/data/get', function(res) {
@@ -27,21 +33,31 @@ $('aside .menu-inner a').click(function(e) {
 	});
 });
 
-function login(token) {
-	let form = $('#form-login');
-	let input = form.serialize();
-	let button = form.find("[name='submit']");
-	button.addClass("disabled");
+$(`form`).submit(function(e) {
+	e.preventDefault();
+	let url = $(this).attr('action');
+	let input = $(this).serialize();
+	let button = $(this).find(`button[type='submit']`);
+	let buttonText = button.text();
+	let loaderIcon = `<i class='bx bx-loader-circle bx-spin'></i>`;
 
-	$.post('/login', input, function(res) {
+	button.addClass('disabled').html(loaderIcon);
+	$.post(url, input, function(res) {
 		if (res.success) {
 			show_alert('alert-success', res.message);
-			location.href = '/faucet';
+
+			if (url in postRedirect) {
+				location.href = postRedirect[url];
+			}
 		} else {
 			show_alert('alert-danger', res.message);
-			button.removeClass('disabled');
+			button.removeClass('disabled').html(buttonText);
 		}
-	}, 'json');
+	}, `json`);
+});
+
+function showTab() {
+	$('#forgot-password-tab').tab('show');
 }
 
 function update_active_menu() {

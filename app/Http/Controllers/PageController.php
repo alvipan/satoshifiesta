@@ -15,10 +15,20 @@ class PageController extends Controller
             'user' => Auth::check() ? Auth::user() : null,
             'page' => $page
         ];
+        if (Auth::check() && !Auth::user()->verified()) {
+            return redirect('/email/verify');
+        }
         return view('wrapper', $data);
     }
 
     public function content($page = 'welcome') {
-        return View::exists('page.'.$page) ? view('page.'.$page) : view('page.404');
+        $data = [
+            'user' => Auth::check() ? Auth::user() : null
+        ];
+        $view = View::exists('page.'.$page) ? 'page.'.$page : 'page.error.404';
+        if (Auth::check() && !Auth::user()->verified()) {
+            $view = 'page.verify-email';
+        }
+        return View($view, $data);
     }
 }

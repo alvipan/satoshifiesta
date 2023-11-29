@@ -10,9 +10,14 @@
       @auth
       <li class="nav-item navbar-dropdown dropdown-user dropdown">
         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-          <div class="avatar avatar-sm avatar-online">
-            <img src="/assets/img/avatars/1.png" alt class="w-px-35 h-auto rounded-circle" />
-          </div>
+          <button class="btn btn-sm btn-outline-primary rounded-pill fw-bold me-2 me-xl-0">
+            0.00000000
+          </button>
+        </a>
+      </li>
+      <li class="nav-item navbar-dropdown dropdown-user dropdown">
+        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+          <i class="bx bx-user"></i>
         </a>
         <ul class="dropdown-menu dropdown-menu-end">
           <li>

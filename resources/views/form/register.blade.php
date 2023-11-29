@@ -1,7 +1,7 @@
-<form action="/register" method="post"id="form-register" role="form" class="text-start">
+<form id="form-register" action="/register" method="post" role="form" class="text-start">
 	@csrf
 
-	<label class="form-label" for="reg-name">Username:</label>
+	<label class="form-label" for="reg-name">Name:</label>
   <div class="input-group input-group-outline mb-3">
     <input id="reg-name" name="name" type="text" class="form-control" autocomplete="off" required/>
   </div>
