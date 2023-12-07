@@ -22,15 +22,15 @@
 						<span class="h2 border border-light bg-gradient-primary font-monospace rounded px-2 py-1 py-xl-0" id="slot-5">0</span>
 					</div>
 					<div class="col mt-4 ps-1">
-						<button class="btn btn-roll btn-primary w-100" onclick="roll()">ROLL</button>
+						<button id="btn-roll" class="btn btn-primary w-100" onclick="roll()" disabled>ROLL</button>
 					</div>
 				</div>
 
 				<div class="text-white">
 					<span>Until activation:</span>
-					<span class="timer">00:00</span>
+					<span id="timer" class="font-monospace">00:00</span>
 					<div class="progress overflow-hidden mt-1" style="height:10px">
-						<div class="progress-bar bg-gradient-success" role="progressbar" style="width: 0%; height:10px"></div>
+						<div id="progress-bar" class="bg-gradient-success" role="progressbar" style="width: 0%; height:10px"></div>
 					</div>
 				</div>
 
@@ -51,3 +51,4 @@
 		@include('part.faucet-history')
 	</div>
 </diiv>
+@include('modal.faucet-roll')

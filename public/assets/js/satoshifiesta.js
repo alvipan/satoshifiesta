@@ -1,39 +1,60 @@
-let data;
-let postRedirect = {
-	'/login': '/faucet',
-	'/register':'/email/verify',
-	'/forgot-password': '/reset-password/sent',
-	'/reset-password': '/reset-password/success'
+let data = {
+	audio: {},
+	config: [],
+	game: {},
+	modal: {},
+	page: {
+		url: '',
+		title:'',
+		controller: ''
+	},
+	postRedirect: {
+		'/login': '/faucet',
+		'/register':'/email/verify',
+		'/forgot-password': '/reset-password/sent',
+		'/reset-password': '/reset-password/success'
+	},
+	script: [
+		'faucet'
+	],
+	user: null,
 };
 
 $.when (
 	$.get('/data/get', function(res) {
-		data = res;
-	}),
-	update_active_menu()
+		data.config = res.config;
+		data.user = res.user;
+		if (!data.user) data.modal.connect = new bootstrap.Modal(document.getElementById('modal-connect'), {keyboard: false});
+	})
 ).done(function() {
-	
-});
+	data.page.url = location.pathname;
+	data.page.controller = data.page.url.split('/')[1];
 
-history.pushState({"html":$('#content').html()}, '', location.pathname);
-window.onpopstate = function(e){
-	if(e.state){
+	window.onpopstate = function(e){
+		if(e.state){
 			$('#content').html(e.state.html);
+			data.page.url = location.pathname;
+			data.page.controller = data.page.url.split('/')[1];
 			update_active_menu();
-	}
-};
+		}
+	};
 
-$('aside .menu-inner a').click(function(e) {
-	e.preventDefault();
-	let url = $(this).attr('href');
-	$.get(`${url}/content`, function(res) {
-		$('#content').html(res);
-		history.pushState({"html":res}, '', url);
-		update_active_menu();
-	});
+	get_content(false);
 });
 
-$(`form`).submit(function(e) {
+$('a').click(function(e) {
+	e.preventDefault();
+	data.page.url = $(this).attr('href');
+	data.page.controller = data.page.url.split('/')[1];
+
+	if (data.page.url != '/logout') {
+		get_content();
+	} else {
+		location.href = data.page.url;
+	}
+});
+
+$('form').submit(function(e) {
 	e.preventDefault();
 	let url = $(this).attr('action');
 	let input = $(this).serialize();
@@ -46,8 +67,8 @@ $(`form`).submit(function(e) {
 		if (res.success) {
 			show_alert('alert-success', res.message);
 
-			if (url in postRedirect) {
-				location.href = postRedirect[url];
+			if (url in data.postRedirect) {
+				location.href = data.postRedirect[url];
 			}
 		} else {
 			show_alert('alert-danger', res.message);
@@ -56,22 +77,42 @@ $(`form`).submit(function(e) {
 	}, `json`);
 });
 
+$('#content').bind("DOMSubtreeModified",function(){
+	history.replaceState({'html':$('#content').html()}, '', data.page.url);
+});
+
+function get_content(push = true) {
+	if (data.page.controller == '') {
+		data.page.controller = 'welcome';
+	}
+
+	$.get(`${data.page.controller}/content`, function(res) {
+		$('#content').html(res);
+		if (push) {
+			history.pushState({'html':res}, '', data.page.url);
+		} else {
+			history.replaceState({'html':res}, '', data.page.url);
+		}
+		update_active_menu();
+	});
+}
+
 function showTab() {
 	$('#forgot-password-tab').tab('show');
 }
 
 function update_active_menu() {
-	let path = location.pathname.split('/');
-	let controller = path[1];
 	$('aside .menu-inner li').removeClass('active open');
 	$('aside .menu-inner')
-		.find(`a[href='/${controller}']`)
+		.find(`a[href='/${data.page.controller}']`)
 		.parents('li')
 		.addClass('active open');
-	$.getScript(`/assets/js/page/${controller}.js`);
+	if (data.script.includes(data.page.controller)) {
+		$.getScript(`/assets/js/page/${data.page.controller}.js`);
+	}
 }
 
 function show_alert(type, message) {
-	let content = '<div class="alert ' + type + ' text-sm text-white" style="min-width:250px;">' + message + '</div>';
+	let content = `<div class="alert ${type} text-white">${message}</div>`;
 	$('#alert').html($(content).fadeTo(3000, 1).toggle('slide'));
 }

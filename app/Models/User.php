@@ -23,7 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         'name',
         'email',
         'password',
-        'avatar',
+        'wallets',
     ];
 
     /**
@@ -46,7 +46,18 @@ class User extends Authenticatable implements MustVerifyEmail, CanResetPassword
         'password' => 'hashed',
     ];
 
+    public function add_balance($currency, $amount) {
+        $wallet = json_decode($this->wallets);
+        $wallet->$currency->amount += $amount;
+        $this->wallets = json_encode($wallet);
+        $this->save();
+    }
+
     public function verified() {
         return $this->email_verified_at ? true : false;
+    }
+
+    public function is_admin() {
+        
     }
 }

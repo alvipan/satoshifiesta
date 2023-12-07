@@ -62,7 +62,7 @@
 
           <div class="content-wrapper">
             <div class="container-xxl flex-grow-1 container-p-y" id="content">
-              @include(View::exists('page.'.$page) ? 'page.'.$page : 'page.error.404')
+              
             </div>
 
             <footer class="content-footer footer bg-footer-theme">

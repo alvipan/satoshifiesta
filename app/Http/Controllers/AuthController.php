@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Config;
 use App\Models\User;
+
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -24,18 +26,18 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return $this->json_response([
+            return [
                 'success' => true,
                 'message' => 'Login success.'
-            ]);
+            ];
         }
 
-        return $this->json_response([
+        return [
             'success' => false,
             'message' => User::firstWhere('email', $request->email)
                 ? 'Incorrect email or password'
                 : 'Email not registered'
-        ]);
+        ];
     }
 
     public function register(Request $request) {
@@ -47,22 +49,28 @@ class AuthController extends Controller
         ]);
 
         if (!User::firstWhere('email', $request->email)) {
+            $wallets = explode(',', Config::firstWhere('name', 'currency_list')->content ?? '');
+            $user = User::create([
+                'name'      => $request->name,
+                'email'     => $request->email,
+                'password'  => $request->password,
+                'wallets'   => $this->create_wallet()
+            ]);
 
-            $user = User::create(request(['name','email','password']));
             Auth::attempt($credentials);
             $request->session()->regenerate();
             event(new Registered($user));
 
-            return $this->json_response([
+            return [
                 'success' => true,
                 'message' => 'Registration successful.'
-            ]);
+            ];
         }
 
-        return $this->json_response([
+        return [
             'success' => false,
             'message' => 'Email has been registered.'
-        ]);
+        ];
     }
 
     public function email_verify() {
@@ -107,10 +115,10 @@ class AuthController extends Controller
 				'message' => 'Reset link sent'
 			]);
 		}
-        return $this->json_response([
+        return [
             'success' => false,
             'message' => 'Error: '.$status
-        ]);
+        ];
     }
 
     public function reset_password(string $token) {
@@ -146,15 +154,15 @@ class AuthController extends Controller
 	    );
 
 	    if ($status === Password::PASSWORD_RESET) {
-		    return $this->json_response([
+		    return [
 			    'success' => true,
 			    'message' => 'Password has been reset'
-		    ]);
+		    ];
 	    }
-        return $this->json_response([
+        return [
             'success' => false,
             'message' => 'Error: '.$status
-        ]);
+        ];
     }
 
     public function logout(Request $request): RedirectResponse {
@@ -162,6 +170,18 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect('/');
+    }
+
+    private function create_wallet() {
+        $currency = explode(',', Config::firstWhere('name', 'currency_list')->content ?? '');
+	    $wallets = [];
+	    for ($i = 0; $i < count($currency); $i++) {
+            $wallets[$currency[$i]] = [
+			    'amount'	=> 0,
+			    'adrress'	=> ''
+		    ];
+	    }
+	    return json_encode($wallets);
     }
 }
 

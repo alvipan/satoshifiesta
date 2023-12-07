@@ -14,7 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+use App\Models\Config;
 use App\Models\User;
+use App\Models\Game;
+use App\Models\Transaction;
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
@@ -22,11 +25,16 @@ use App\Http\Controllers\FaucetController;
 use App\Http\Controllers\PageController;
 
 Route::get('/test', function() {
-		$data = [
-			'user' => Auth::user(),
-			'page' => 'auth.verify-email-success'
-		];
-		return view('wrapper', $data);
+	$game = Game::firstWhere('name', 'faucet');
+	    $history = Transaction::where('uid', Auth::id())->where('type','faucet')->first();
+			$timer = $game->timer * 60;
+			$last = $history ? strtotime($history->created_at) : 0;
+
+	    return [
+		    'timer'     => $timer + $last,
+				'now' 			=> time(),
+				'interval'	=> ($timer + $last) - time()
+	    ];
 });
 
 // AuthController route
@@ -44,6 +52,12 @@ Route::controller(AuthController::class)->group(function() {
 	Route::get('/reset-password/{token}', 'reset_password')->middleware('guest')->name('password.reset');
 });
 
+//FaucetController route
+Route::controller(FaucetController::class)->group(function() {
+	Route::get('/faucet/roll', 'roll');
+	Route::get('/faucet/data', 'data');
+});
+
 // AccountController route
 Route::controller(AccountController::class)->group(function() {
 	
@@ -57,5 +71,3 @@ Route::controller(PageController::class)->group(function() {
 });
 
 Route::get('/data/get', [DataController::class, 'get']);
-
-Route::get('/faucet/roll', [FaucetController::class, 'roll']);

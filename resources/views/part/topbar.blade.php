@@ -9,16 +9,16 @@
     <ul class="navbar-nav flex-row align-items-center ms-auto">
       @auth
       <li class="nav-item navbar-dropdown dropdown-user dropdown">
-        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+        <span class="nav-link dropdown-toggle hide-arrow cursor-pointer" data-bs-toggle="dropdown">
           <button class="btn btn-sm btn-outline-primary rounded-pill fw-bold me-2 me-xl-0">
             0.00000000
           </button>
-        </a>
+        </span>
       </li>
       <li class="nav-item navbar-dropdown dropdown-user dropdown">
-        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+        <span class="nav-link dropdown-toggle hide-arrow cursor-pointer" data-bs-toggle="dropdown">
           <i class="bx bx-user"></i>
-        </a>
+        </span>
         <ul class="dropdown-menu dropdown-menu-end">
           <li>
             <a class="dropdown-item" href="/logout">

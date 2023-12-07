@@ -6,9 +6,9 @@
       </span>
     </a>
 
-    <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
+    <span class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none cursor-pointer">
       <i class="bx bx-chevron-left bx-sm align-middle"></i>
-    </a>
+    </span>
   </div>
 
   <div class="menu-inner-shadow"></div>
